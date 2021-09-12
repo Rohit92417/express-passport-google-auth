@@ -5,8 +5,10 @@ const express = require("express");
 
 const dotenv =  require("dotenv").config();
 
-
 const app = express();
+
+app.set("view engine","ejs")
+
 app.listen(5000, () => {
     console.log('server is started');
 })
@@ -37,6 +39,9 @@ function(request, accessToken, refreshToken, profile, done) {
   }
 ));
 
+app.get("/",(req,res) => {
+    res.render("index")    
+}
 app.get('/auth/google', passport.authenticate('google', { scope: ['email','profile'] }));
 
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/auth/fail' }),
